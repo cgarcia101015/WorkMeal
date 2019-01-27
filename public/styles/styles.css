@@ -1,3 +1,41 @@
 .list-group-item {
   line-height: 2.5;
 }
+
+.container {
+  /* background-color: aquamarine; */
+}
+
+.customBackground {
+  background-color: #dff9fb;
+  color: #fff;
+}
+
+.carousel-item {
+  height: 65vh;
+  min-height: 300px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+/* .sizing {
+  float: left;
+} */
+
+.recipeList {
+  display: inline-flex;
+}
+
+.teamCard {
+  display: inline-flex;
+  border: none;
+}
+
+.imageSize {
+  width: 286px;
+  height: 180px;
+  border-radius: 50%;
+}
