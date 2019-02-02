@@ -12,6 +12,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static("public"));
 
+app.get('/', function (req, res) {
+  res.type('application/json');
+  res.status(200).json({
+      "now": new Date().getTime()
+  });
+});
+
+
 // Handlebars
 app.engine(
   "handlebars",
@@ -37,7 +45,7 @@ if (process.env.NODE_ENV === "test") {
 db.sequelize.sync(syncOptions).then(function() {
   app.listen(PORT, function() {
     console.log(
-      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
+      "==> 🌎  [WEB] Server listening on port %s. Visit http://localhost:%s/ in your browser.",
       PORT,
       PORT
     );

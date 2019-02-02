@@ -64,7 +64,7 @@ function returnRestaurant() {
   console.log("Edamam API error: " + error);
   bot.postMessageToChannel("slack-bot-for-meals","I\'m sorry, I didn\'t get any results for that, could you be more specific?", { "slackbot": true, icon_emoji: ":question:"});
 });
-};
+}
 // Return a recipe 
 function returnLunch() {
     axios.get("https://api.edamam.com/search?q=" + apiInput + "&app_id=45d6973d&app_key=a104dcac382786daa58cb39db2166cb2").then(function(response) {
