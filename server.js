@@ -12,14 +12,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static("public"));
 
-app.get('/', function (req, res) {
-  res.type('application/json');
-  res.status(200).json({
-      "now": new Date().getTime()
-  });
-});
-
-
 // Handlebars
 app.engine(
   "handlebars",

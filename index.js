@@ -30,6 +30,7 @@ bot.on("message", function(data) {
   var userInput = data.text;
   // If the bot sent the message, do nothing 
   if (data.type !== "message" || data.subtype === "bot_message" || userInput == "undefined") {
+    console.log('this is what the user input: ' + userInput)
   return;
   // If the message calls out the work meal bot specifically, and says nothing else, respond
   } else if (data.text === "<@UFR15N7TQ>") {
