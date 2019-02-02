@@ -3,6 +3,8 @@ require("dotenv").config();
 SlackBot = require("slackbots");
 axios = require("axios");
 
+module.exports = function(app) {
+
 // Setup our slackbot with the app we created and their credentials
 var bot = new SlackBot({
   token: process.env.SLACKBOT_TOKEN,
@@ -30,7 +32,7 @@ bot.on("message", function(data) {
   var userInput = data.text;
   // If the bot sent the message, do nothing 
   if (data.type !== "message" || data.subtype === "bot_message" || userInput == "undefined") {
-    console.log('this is what the user input: ' + userInput)
+    console.log('this is what the user input: ' + userInput);
   return;
   // If the message calls out the work meal bot specifically, and says nothing else, respond
   } else if (data.text === "<@UFR15N7TQ>") {
@@ -88,8 +90,5 @@ function returnLunch() {
 });
 }
 
-// function rude() {
-//     bot.postMessageToChannel("slack-bot-for-meals", "Well that\'s rude.", { "slackbot": true, icon_emoji: ":neutral_face:"});
-// }
-
 });
+};

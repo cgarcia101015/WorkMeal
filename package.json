@@ -2,9 +2,9 @@
   "name": "project-2",
   "version": "1.0.0",
   "description": "Project 2 Starter",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node slackbot.js",
     "lint": "eslint **/*.js --quiet",
     "fix": "eslint --fix .",
     "test": "npm run lint && NODE_ENV=test mocha -u tdd --reporter spec --exit"

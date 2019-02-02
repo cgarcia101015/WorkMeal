@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "ENTER YOUR LOCAL PASSWORD",
+    "password": "Gocaps!11",
     "database": "mealsdb",
     "host": "localhost",
     "dialect": "mysql"
