@@ -50,7 +50,7 @@ bot.on("message", function(data) {
 
 function returnRestaurant() {
   var config = { headers: {"user-key" : "5d210cce31ec0d89636072c424a81717"}};
-  var URL = "https://developers.zomato.com/api/v2.1/search?q=" + userInput;
+  var URL = "https://developers.zomato.com/api/v2.1/search?q=" + apiInput + "&lat=40.809498&lon=-73.960154&radius=500%&sort=real_distance";
 
   axios.get(URL, config).then(function(response) {
     var jsonData = response.data;
