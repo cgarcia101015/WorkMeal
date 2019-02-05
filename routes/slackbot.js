@@ -3,6 +3,7 @@ var keys = require('../keys.js');
 SlackBot = require('slackbots');
 axios = require('axios');
 var NodeGeocoder = require('node-geocoder');
+var db = require("../models");
 module.exports = function (app) {
 // Setup our slackbot with the app we created and their credentials
 var bot = new SlackBot({
@@ -20,7 +21,6 @@ bot.on('error', function (error) {
   console.log('Uh-oh, slackBot error: ' + error);
 });
 
-// Start Handler - starts the slackbot
 // Event = start - triggered when the bot is successfully connected to the Slack server
 bot.on('start', function () {
   // this makes the emoji of the slackbot a pizza
@@ -56,8 +56,6 @@ bot.on('message', function (data) {
     console.log('The API will search for: ' + apiInput);
     findLocation(returnRestaurant);
     returnLunch();
-
-
   }
   function findLocation(callback) {
     var options = {
@@ -98,8 +96,13 @@ bot.on('message', function (data) {
           'Location: ' + jsonData.restaurants[1].restaurant.location.address,
           'Url to Restaurant: ' + jsonData.restaurants[1].restaurant.url
         ].join('\n\n');
-        // console.log(response);
-        // console.log(zomato);
+
+        // create a new Restaurant
+        db.Restaurant.create({
+          restName: jsonData.restaurants[1].restaurant.name,
+          location: jsonData.restaurants[1].restaurant.location.address,
+          urlRest: jsonData.restaurants[1].restaurant.url,
+        }).then(function () {
         var params = {
           icon_emoji: ':bread:'
         };
@@ -113,7 +116,8 @@ bot.on('message', function (data) {
           { slackbot: true, icon_emoji: ':question:' }
         );
       });
-  }
+      })
+    };
 
   // Return a recipe
   function returnLunch() {
@@ -129,22 +133,21 @@ bot.on('message', function (data) {
           'Url to Recipe: ' + jsonData.hits[1].recipe.url
         ].join('\n\n');
 
-        var params = {
-          icon_emoji: ':bread:'
-        };
-        bot.postMessageToChannel('slack-bot-for-meals', "Here's an idea: " + showData, params);
-      })
-      .catch(function (error) {
-        console.log('Edamam API error: ' + error);
-        bot.postMessageToChannel(
-          'slack-bot-for-meals',
-          "I'm sorry, I didn't get any results for that, could you be more specific?",
-          { slackbot: true, icon_emoji: ':question:' }
-        );
-      });
+        // Create a new Recipe
+        db.Recipe.create({
+          title: userInput,
+          imageURL: jsonData.hits[1].recipe.image,
+          recipeURL: jsonData.hits[1].recipe.url
+        }).then(function () {
+          var params = {
+            icon_emoji: ":bread:"
+          };
+          bot.postMessageToChannel("slack-bot-for-meals", "Here\'s an idea: " + showData, params);
+        });
+  }).catch(function (error) {
+    console.log("Edamam API error: " + error);
+    bot.postMessageToChannel("slack-bot-for-meals","I\'m sorry, I didn\'t get any results for that, could you be more specific?", { "slackbot": true, icon_emoji: ":question:"});
+  });
   }
-});
+  });
 };
-
-
-
