@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "Pbgvlion",
-    "database": "mealsdb",
+    "database": "meals_db",
     "host": "localhost",
     "dialect": "mysql"
   },
