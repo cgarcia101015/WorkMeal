@@ -3,6 +3,8 @@ require("dotenv").config();
 SlackBot = require("slackbots");
 axios = require("axios");
 
+var db = require("../models");
+
 module.exports = function(app) {
 
 // Setup our slackbot with the app we created and their credentials
@@ -49,47 +51,64 @@ bot.on("message", function(data) {
     returnRestaurant();
   }
 
-function returnRestaurant() {
-  var config = { headers: {"user-key" : "5d210cce31ec0d89636072c424a81717"}};
-  var URL = "https://developers.zomato.com/api/v2.1/search?q=" + userInput;
+  function returnRestaurant() {
+    var config = { headers: {"user-key" : "5d210cce31ec0d89636072c424a81717"}};
+    var URL = "https://developers.zomato.com/api/v2.1/search?q=" + userInput;
 
-  axios.get(URL, config).then(function(response) {
-    var jsonData = response.data;
-    var showData = [
-      "Name: " + jsonData.restaurants[1].restaurant.name,
-      "Location: " + jsonData.restaurants[1].restaurant.location.address,
-      "Url to Restaurant: " + jsonData.restaurants[1].restaurant.url,
-    ].join("\n\n");
-    var params = {
-            icon_emoji: ":bread:"
-        };
-    bot.postMessageToChannel("slack-bot-for-meals", "Here\'s an idea: " + showData, params);
-}).catch(function (error) {
-  console.log("Edamam API error: " + error);
-  bot.postMessageToChannel("slack-bot-for-meals","I\'m sorry, I didn\'t get any results for that, could you be more specific?", { "slackbot": true, icon_emoji: ":question:"});
-});
-}
-// Return a recipe 
-function returnLunch() {
-    axios.get("https://api.edamam.com/search?q=" + apiInput + "&app_id=45d6973d&app_key=a104dcac382786daa58cb39db2166cb2").then(function(response) {
-        var jsonData = response.data;
+    axios.get(URL, config).then(function(response) {
+      var jsonData = response.data;
+      var showData = [
+        "Name: " + jsonData.restaurants[1].restaurant.name,
+        "Location: " + jsonData.restaurants[1].restaurant.location.address,
+        "Url to Restaurant: " + jsonData.restaurants[1].restaurant.url,
+      ].join("\n\n");
 
-        var showData = [
-            jsonData.q,
-          "Title: " + jsonData.hits[1].recipe.label,
-          "Image: " + jsonData.hits[1].recipe.image,
-          "Url to Recipe: " + jsonData.hits[1].recipe.url,
-        ].join("\n\n");
-
+      // create a new Restaurant
+      db.Restaurant.create({
+        restName: jsonData.restaurants[1].restaurant.name,
+        location: jsonData.restaurants[1].restaurant.location.address,
+        urlRest: jsonData.restaurants[1].restaurant.url,
+      }).then(function(){
         var params = {
-            icon_emoji: ":bread:"
-        };
+                icon_emoji: ":bread:"
+            };
         bot.postMessageToChannel("slack-bot-for-meals", "Here\'s an idea: " + showData, params);
-}).catch(function (error) {
+
+      })
+
+  }).catch(function (error) {
     console.log("Edamam API error: " + error);
     bot.postMessageToChannel("slack-bot-for-meals","I\'m sorry, I didn\'t get any results for that, could you be more specific?", { "slackbot": true, icon_emoji: ":question:"});
-});
-}
+  });
+  }
+  // Return a recipe 
+  function returnLunch() {
+      axios.get("https://api.edamam.com/search?q=" + apiInput + "&app_id=45d6973d&app_key=a104dcac382786daa58cb39db2166cb2").then(function(response) {
+          var jsonData = response.data;
 
-});
+          var showData = [
+              jsonData.q,
+            "Title: " + jsonData.hits[1].recipe.label,
+            "Image: " + jsonData.hits[1].recipe.image,
+            "Url to Recipe: " + jsonData.hits[1].recipe.url,
+          ].join("\n\n");
+
+          // Create a new Recipe
+          db.Recipe.create({
+            title: userInput,
+            imageURL: jsonData.hits[1].recipe.image,
+            recipeURL: jsonData.hits[1].recipe.url
+          }).then(function(){
+            var params = {
+                icon_emoji: ":bread:"
+            };
+            bot.postMessageToChannel("slack-bot-for-meals", "Here\'s an idea: " + showData, params);
+          });
+  }).catch(function (error) {
+      console.log("Edamam API error: " + error);
+      bot.postMessageToChannel("slack-bot-for-meals","I\'m sorry, I didn\'t get any results for that, could you be more specific?", { "slackbot": true, icon_emoji: ":question:"});
+  });
+  }
+
+  });
 };
