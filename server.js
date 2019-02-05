@@ -1,11 +1,12 @@
 require("dotenv").config();
 var express = require("express");
 var exphbs = require("express-handlebars");
-
+var morgan = require('morgan');
 var db = require("./models");
 
 var app = express();
 var PORT = process.env.PORT || 3000;
+app.use(morgan('combined'));
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
@@ -44,6 +45,8 @@ db.sequelize.sync(syncOptions).then(function() {
       PORT
     );
   });
+}).catch(function (error){
+  console.log(error);
 });
 
 module.exports = app;
