@@ -21,6 +21,7 @@ bot.on("error", function(error) {
 // Start Handler - starts the slackbot
 // Event = start - triggered when the bot is successfully connected to the Slack server
 bot.on("start", function() {
+  console.log('bot started successfully');
   // this makes the emoji of the slackbot a pizza
   var params = {
     icon_emoji: ":pizza:"
