@@ -51,7 +51,8 @@ module.exports = function(app) {
 			data.text !== undefined &&
 			data.channel === 'CFNLZH407'
 		) {
-			chooseOne();
+			// chooseOne();
+			console.log(userInput);
 			// turn multiple word requests into string for recipe API to search
 			// var apiInput = userInput.replace(/ /g, '+');
 			// console.log('A message was sent that said: ' + userInput);
@@ -85,20 +86,29 @@ module.exports = function(app) {
 		function chooseOne() {
 			// var apiInput = userInput.replace(/ /g, "+");
 			if (userInput === 'cook') {
-				console.log('The user choose to: ' + userInput);
+				// console.log('The user choose to: ' + userInput);
 				bot.postMessageToChannel('slack-bot-for-meals', 'What do you want to cook?');
-
-				bot.on('message', function(data) {
-					var userChoice = data.text;
-					console.log('This is the userInput: ' + userChoice);
-					// returnLunch(userInput);
-				});
+				if (userInput) {
+					bot.on('message', function(choice) {
+						var userChoice = choice.text;
+						console.log('This is the userInput: ' + userChoice);
+						// console.log(userInput);
+						// console.log(data);
+						// returnLunch(userChoice);
+					});
+				}
 			} else if (userInput === 'eat out') {
 				bot.postMessageToChannel('slack-bot-for-meals', 'What do you want to grab?');
-				console.log('The user choose to: ' + userInput);
-				//   findLocation(returnRestaurant);
+				if (userInput) {
+					bot.on('message', function(choice) {
+					var userChoice = choice.text;
+					console.log('The user choose to: ' + userInput);
+
+				});
+				  findLocation(returnRestaurant);
+			
 			}
-		}
+	};
 
 		function returnRestaurant({ lat, lon }) {
 			var userInput = data.text;
@@ -141,8 +151,9 @@ module.exports = function(app) {
 		}
 
 		// Return a recipe
-		function returnLunch() {
-			var apiInput = userInput.replace(/ /g, '+');
+		function returnLunch(data) {
+			var userParam = data;
+			var apiInput = userParam.replace(/ /g, '+');
 			// console.log('sdfsdfhsdfhsudhfsudhfsdf');
 			// console.log(apiInput);
 			axios
@@ -175,5 +186,5 @@ module.exports = function(app) {
 		// function rude() {
 		//     bot.postMessageToChannel("slack-bot-for-meals", "Well that\'s rude.", { "slackbot": true, icon_emoji: ":neutral_face:"});
 		// }
-	});
-};
+	
+	)};
