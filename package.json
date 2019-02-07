@@ -17,6 +17,7 @@
     "express-handlebars": "^3.0.0",
     "morgan": "^1.9.1",
     "mysql2": "^1.5.3",
+    "node-geocoder": "^3.22.0",
     "sequelize": "^4.38.0",
     "slackbots": "^1.2.0"
   },
