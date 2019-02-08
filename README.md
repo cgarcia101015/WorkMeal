@@ -1,16 +1,16 @@
-# Project Starter
+# Work Meal
 
-In this activity we will add the provided boilerplate to group project repos.
+When lunchtime at work hits, do you ever feel like you don't know what to do? You know what you want, but should you cook and bring it in? Or go out and grab something? Work Meal to the rescue! Your new slackbot friend is available to bounce some ideas off of. 
 
-## Instructions
+## How It Works 
 
-* Only one member of each group should complete this activity while the others watch.
+* When Slackbot Work Meal starts, it will ask you: "Would you like to cook or eat our for lunch today?" 
 
-* Copy the entire [Unsolved](Unsolved) folder to another location on your computers &mdash; wherever you would like your local copy of the group project to be.
+* Respond with a message that says either "cook" or "eat out". 
 
-* Rename the copied "Unsolved" folder to the name of your project.
+* If you reply with the message "cook", Work Meal will ask you "What do you want to cook?" Respond with any meal you'd like! Work Meal will call the edamam API to find a perfect recipe for your request. 
 
-* Open the copied project folder's `package.json` file and change its `name` property to the name of your project.
+* If you replied with the message "eat out", Work Meal will ask you "What do you want to grab?" Respond with whatever food you'd like! Work Meal will call the zomato API to find restuarants near you that have that meal. 
 
 * CD to the root of the copied project folder with your terminal and run the following commands:
 
