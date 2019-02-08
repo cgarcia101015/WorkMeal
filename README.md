@@ -4,7 +4,7 @@ When lunchtime at work hits, do you ever feel like you don't know what to do? Yo
 
 ## How It Works 
 
-* When Slackbot Work Meal starts, it will ask you: "Would you like to cook or eat our for lunch today?" 
+* When Slackbot Work Meal starts, it will ask you: "Would you like to cook or eat out for lunch today?" 
 
 * Respond with a message that says either "cook" or "eat out". 
 
