@@ -31,17 +31,18 @@ When lunchtime at work hits, do you ever feel like you don't know what to do? Yo
 Run Work Meal locally by running `node server.js` in your terminal. 
 
 ## Technologies Used
-- `Sequelize` 
-- `Edamam API`
-- `Zomato API`
-- `Node.js`
-  - `Express`
-  - `Express-Handlebars`
-  - `Morgan`
-  - `Slackbots`
-- `Travis CI`
-- `Axios`
-
+```
+- SQL / Sequelize 
+- Edamam API
+- Zomato API
+- Node.js
+  - Express
+  - Express-Handlebars
+  - Morgan
+  - Slackbots
+- Travis CI
+- Axios
+```
 ## Heroku Deployment 
 https://protected-shore-80118.herokuapp.com/
 
