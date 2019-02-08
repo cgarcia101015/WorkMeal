@@ -1,6 +1,6 @@
 # Work Meal
 
-When lunchtime at work hits, do you ever feel like you don't know what to do? You know what you want, but should you cook and bring it in? Or go out and grab something? Work Meal to the rescue! Your new slackbot friend is available to bounce some ideas off of. 
+When lunchtime at work hits, do you ever feel like you don't know what to do? You know what you want, but should you cook and bring it in? Or go out and grab something? Work Meal to the rescue! Your new slackbot friend is available to bounce some ideas off of. Don't worry, Work Meal gets sick of the same thing everyday too, so even if you suggest pizza, Work Meal will give you a new pizza idea for each request. 
 
 ## How It Works 
 
@@ -24,16 +24,28 @@ When lunchtime at work hits, do you ever feel like you don't know what to do? Yo
 
 * Edit the `config.json` file you have your password for your sql database tool. 
 
-* In your sql database tool create a database called mealsdb. 
+* In your sql database tool create a database called `mealsdb`. 
 
 ## Command
 
 Run Work Meal locally by running `node server.js` in your terminal. 
 
-* If completed successfully you should see all of the files uploaded to GitHub.
+## Technologies Used
+- `Sequelize` 
+- `Edamam API`
+- `Zomato API`
+- `Node.js`
+  - `Express`
+  - `Express-Handlebars`
+  - `Morgan`
+  - `Slackbots`
+- `Travis CI`
+- `Axios`
 
-* All other group members should now clone the repo.
+## Heroku Deployment 
+https://protected-shore-80118.herokuapp.com/
 
-* Discuss as a group:
+## Other Notes
 
-  * How would you now add changes to this project?
+This app is currently only deployed in our project workplace, and works within a dedicated channel called "slack-bot-for-meals".
+This app has not been deployed publicly to Slack as an app usable for any workspace. To interact with Work Meal you must be a part of the developers slack channel. 
