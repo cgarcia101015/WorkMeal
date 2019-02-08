@@ -12,22 +12,23 @@ When lunchtime at work hits, do you ever feel like you don't know what to do? Yo
 
 * If you replied with the message "eat out", Work Meal will ask you "What do you want to grab?" Respond with whatever food you'd like! Work Meal will call the zomato API to find restuarants near you that have that meal. 
 
-* CD to the root of the copied project folder with your terminal and run the following commands:
+## How to Run Locally
+
+* Open your terminal
 
   ```
-  git init
-  git add .
-  git commit -m "Initial commit"
+  git clone https://github.com/cgarcia101015/WorkMeal.git
+  cd WorkMeal
+  npm install 
   ```
 
-* Then copy the GitHub repo's remote SSH URL (the same URL you'd use to clone the repo).
+* Edit the `config.json` file you have your password for your sql database tool. 
 
-* Run the following commands in your terminal, replacing <remote-url> with your GitHub repo's remote SSH URL.
+* In your sql database tool create a database called mealsdb. 
 
-  ```
-  git remote add origin <remote-url>
-  git push origin master
-  ```
+## Command
+
+Run Work Meal locally by running `node server.js` in your terminal. 
 
 * If completed successfully you should see all of the files uploaded to GitHub.
 
