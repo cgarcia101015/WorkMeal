@@ -12,6 +12,9 @@ When lunchtime at work hits, do you ever feel like you don't know what to do? Yo
 
 * If you replied with the message "eat out", Work Meal will ask you "What do you want to grab?" Respond with whatever food you'd like! Work Meal will call the zomato API to find restuarants near you that have that meal. 
 
+## Heroku Deployment 
+https://protected-shore-80118.herokuapp.com/
+
 ## How to Run Locally
 
 * Open your terminal
@@ -43,8 +46,6 @@ Run Work Meal locally by running `node server.js` in your terminal.
 - Travis CI
 - Axios
 ```
-## Heroku Deployment 
-https://protected-shore-80118.herokuapp.com/
 
 ## Other Notes
 
