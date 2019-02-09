@@ -143,7 +143,6 @@ module.exports = function(app) {
 				.catch(function(error) {
 					console.log('Zomato API error: ' + error);
 					bot.postMessageToChannel(
-						'slack-bot-for-meals',
 						"I'm sorry, I didn't get any results for that, could you be more specific?",
 						{ slackbot: true, icon_emoji: ':question:' }
 					);
