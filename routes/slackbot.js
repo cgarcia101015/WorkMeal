@@ -3,6 +3,7 @@ var keys = require('../keys');
 SlackBot = require('slackbots');
 axios = require('axios');
 var db = require('../models');
+var NodeGeocoder = require('node-geocoder');
 
 module.exports = function(app) {
 	// Setup our slackbot with the app we created and their credentials
@@ -13,6 +14,7 @@ module.exports = function(app) {
 
 	var zamKey = keys.zomato;
 	var edaKey = keys.edamam;
+	var mapKey = keys.mapquest;
 
 	// Error Handler
 	bot.on('error', function(error) {
@@ -89,8 +91,30 @@ module.exports = function(app) {
 						data.text !== 'undefined' &&
 						data.channel === 'CFNLZH407'
 					) {
+						bot.postMessageToChannel('slack-bot-for-meals', 'What is your zipcode?').then(function(data) {
+							bot.on('message', function(data) {
+								var userZip = data.text;
+								// If the bot sent the message, do nothing
+								if (
+									data.type !== 'message' ||
+									data.subtype === 'bot_message' ||
+									userZip == 'undefined'
+								) {
+									return;
+									// If the message calls out the work meal bot specifically, and says nothing else, respond
+								} else if (
+									data.type === 'message' &&
+									data.username != 'work_meal' &&
+									data.text !== 'undefined' &&
+									data.channel === 'CFNLZH407'
+								) {
+									findLocation(userZip);
+									// // console.log('A message was sent that said: ' + userInput);
+								}
+							});
+						});
 						returnRestaurant(userNewInput);
-						// console.log('A message was sent that said: ' + userInput);
+						// // console.log('A message was sent that said: ' + userInput);
 					}
 				});
 			});
@@ -140,6 +164,26 @@ module.exports = function(app) {
 				});
 		}
 
+		function findLocation(zip) {
+			var zipcode = zip;
+			var options = {
+				provider: 'mapquest',
+
+				// Optional depending on the providers
+				httpAdapter: 'https', // Default
+				apiKey: mapKey, // for Mapquest, OpenCage, Google Premier
+				formatter: null // 'gpx', 'string', ...
+			};
+			var geocoder = NodeGeocoder(options);
+
+			//Using callback
+			geocoder.geocode(zipcode, function(err, res) {
+				var geoLat = res[0].latitude;
+				var geoLon = res[0].longitude;
+				console.log('Latitude: ' + geoLat);
+				console.log('Longitude: ' + geoLon);
+			});
+		}
 		// Return a recipe
 		function returnLunch(userNewInput) {
 			console.log('cooking something!!');
