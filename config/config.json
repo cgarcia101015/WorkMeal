@@ -1,7 +1,7 @@
 {
 	"development": {
 		"username": "root",
-		"password": "ENTER PASSWORD",
+		"password": "mycyn*170",
 		"database": "mealsdb",
 		"host": "localhost",
 		"dialect": "mysql"
