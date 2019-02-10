@@ -108,19 +108,23 @@ module.exports = function(app) {
 									data.text !== 'undefined' &&
 									data.channel === 'CFNLZH407'
 								) {
-									findLocation(userZip);
+									findLocation(userZip, userNewInput);
+									console.log('line 112' + location);
+									// console.log('line 112'latlon);
+
 									// // console.log('A message was sent that said: ' + userInput);
 								}
 							});
 						});
-						returnRestaurant(userNewInput);
+						// returnRestaurant(userNewInput);
 						// // console.log('A message was sent that said: ' + userInput);
 					}
 				});
 			});
 		}
 
-		function returnRestaurant(userNewInput) {
+		function returnRestaurant(userNewInput, geoLat, geoLon) {
+			console.log('line 127' + geoLat, geoLon);
 			var apiInput = userNewInput.replace(/ /g, '+');
 			var config = { headers: { 'user-key': zamKey } };
 			// console.log(lat, lon)
@@ -164,7 +168,12 @@ module.exports = function(app) {
 				});
 		}
 
-		function findLocation(zip) {
+		var location = {
+			geoLat: '',
+			geoLon: ''
+		};
+
+		function findLocation(zip, userChoice) {
 			var zipcode = zip;
 			var options = {
 				provider: 'mapquest',
@@ -178,12 +187,19 @@ module.exports = function(app) {
 
 			//Using callback
 			geocoder.geocode(zipcode, function(err, res) {
-				var geoLat = res[0].latitude;
-				var geoLon = res[0].longitude;
-				console.log('Latitude: ' + geoLat);
-				console.log('Longitude: ' + geoLon);
+				location.geoLat = res[0].latitude;
+				location.geoLon = res[0].longitude;
+				console.log('Latitude: ' + location.geoLat);
+				console.log('Longitude: ' + location.geoLon);
+				console.log('line 191' + location);
+				console.log(location);
+				returnRestaurant(userChoice, res[0].latitude, res[0].longitude);
 			});
+			console.log(geocoder);
+			console.log('Location 192' + location);
+			console.log(location);
 		}
+
 		// Return a recipe
 		function returnLunch(userNewInput) {
 			console.log('cooking something!!');
